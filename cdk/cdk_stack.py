@@ -34,6 +34,13 @@ class CdkStack(Stack):
                     viewer_protocol_policy=cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
                     origin=origins.S3Origin(s3_bucket)
                 ),
+                error_responses= [
+                    cloudfront.ErrorResponse(
+                          http_status=403,
+                          response_http_status=200,
+                          response_page_path="/index.html"
+                        )
+                    ],
                 certificate=certificate.Certificate.from_certificate_arn(self, 
                     "AWSCertificateManager",
                     route53_conf['certificate_arn']

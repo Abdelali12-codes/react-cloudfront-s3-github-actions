@@ -83,6 +83,18 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
         AWS_EC2_METADATA_DISABLED: true
+        
+    - name: extract distributionid from outputs.json
+      uses: sergeysova/jq-action@v2
+      id: distributionid
+      with:
+        cmd: 'jq -r .cloudfront-s3.distributionid ./cdk/outputs.json'
+      
+    - name: cloudfront invalidation
+      run: aws cloudfront create-invalidation --distribution-id=${{ steps.distributionid.outputs.value }} --paths='/*'
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     
     #- name: Invalidate CloudFront
     #  uses: chetan/invalidate-cloudfront-action@v2
