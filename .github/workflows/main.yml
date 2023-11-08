@@ -88,7 +88,7 @@ jobs:
       uses: sergeysova/jq-action@v2
       id: distributionid
       with:
-        cmd: 'jq -r .cloudfront-s3.distributionid ./cdk/outputs.json'
+        cmd: 'jq -r .cloudfronts3.distributionid ./cdk/outputs.json'
       
     - name: cloudfront invalidation
       run: aws cloudfront create-invalidation --distribution-id=${{ steps.distributionid.outputs.value }} --paths='/*'

@@ -13,6 +13,6 @@ cdk_env = cdk.Environment(region=config.REGION, account=config.ACCOUNT)
 
 app = cdk.App()
 
-CdkStack(app, "cloudfront-s3",env=cdk_env)
+CdkStack(app, "cloudfronts3",env=cdk_env)
 
 app.synth()
