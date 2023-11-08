@@ -54,7 +54,7 @@ jobs:
       working-directory: ./cdk
         
     - name: Cdk Deploy
-      run: cdk deploy -c bucket_name=$BUCKET_NAME --require-approval never
+      run: cdk deploy -c bucket_name=$BUCKET_NAME --outputs-file outputs.json --require-approval never
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -77,7 +77,7 @@ jobs:
       working-directory: ./react-app
       
     - name: export code to s3
-      run: aws s3 sync ./react-app/build s3://$BUCKET_NAME
+      run: aws s3 sync ./react-app/build s3://$BUCKET_NAME && cat ./cdk/outputs.json
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

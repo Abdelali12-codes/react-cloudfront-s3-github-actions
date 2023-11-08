@@ -3,7 +3,7 @@ from aws_cdk import (
     Stack,
     # aws_sqs as sqs,
 )
-from aws_cdk import RemovalPolicy
+from aws_cdk import RemovalPolicy, CfnOutput
 from constructs import Construct
 import aws_cdk.aws_cloudfront as cloudfront
 import aws_cdk.aws_cloudfront_origins as origins
@@ -42,6 +42,7 @@ class CdkStack(Stack):
                 
         )
         
+        CfnOutput(self, "distributionid", value=distribution.distribution_id)
         # Route53
         route53.CfnRecordSetGroup(self,"AWSCloudFrontRecord",
            hosted_zone_id=route53_conf['hostedzone_id'],
