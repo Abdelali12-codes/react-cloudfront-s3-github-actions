@@ -38,7 +38,7 @@ class CdkStack(Stack):
                     "AWSCertificateManager",
                     route53_conf['certificate_arn']
                     ),
-                domain_names=[config.ROUTE53_RECORD_NAME],
+                domain_names=[route53_conf['record_name']],
                 
         )
         
