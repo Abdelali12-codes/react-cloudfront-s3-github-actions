@@ -35,6 +35,7 @@ jobs:
 
     - name: Install requirements
       run: pip install -r requirements.txt
+      working-directory: ./cdk
 
     - name: Cdk Bootstrap
       run: cdk bootstrap -c bucket_name=$BUCKET_NAME
