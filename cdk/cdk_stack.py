@@ -3,7 +3,7 @@ from aws_cdk import (
     Stack,
     # aws_sqs as sqs,
 )
-from cdk import *
+from aws_cdk import RemovalPolicy
 from constructs import Construct
 import aws_cdk.aws_cloudfront as cloudfront
 import aws_cdk.aws_cloudfront_origins as origins
